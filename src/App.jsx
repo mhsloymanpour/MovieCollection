@@ -64,6 +64,8 @@ function App() {
       <div className="max-w-7xl mx-auto">
         <h1 className="text-4xl font-bold text-center mb-8 flex items-center justify-center gap-2">
           <GiFilmStrip className="text-primary" /> Movie Collection 
+          <br />
+          طراح : سلیمانپور
         </h1>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
