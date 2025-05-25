@@ -7,8 +7,10 @@ import {
   FaInstagram,
   FaFilm,
 } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 function Footer() {
+  const Navigate = useNavigate();
   return (
     <footer className="bg-gray-900 border-t border-gray-800 mt-12">
       <div className="max-w-7xl mx-auto px-4 py-12">
@@ -66,6 +68,38 @@ function Footer() {
           <div>
             <h3 className="font-bold text-lg mb-4 text-amber-500">Genres</h3>
             <ul className="space-y-3">
+              <li
+                className="cursor-pointer text-gray-400 hover:text-amber-400 transition-colors"
+                onClick={() => Navigate("/Action")}
+              >
+                Action
+              </li>
+              <li
+                className="cursor-pointer text-gray-400 hover:text-amber-400 transition-colors"
+                onClick={() => Navigate("/Comedy")}
+              >
+                Comedy
+              </li>
+              <li
+                className="cursor-pointer text-gray-400 hover:text-amber-400 transition-colors"
+                onClick={() => Navigate("/Drama")}
+              >
+                Drama
+              </li>
+              <li
+                className="cursor-pointer text-gray-400 hover:text-amber-400 transition-colors"
+                onClick={() => Navigate("/Scary")}
+              >
+                Scary
+              </li>
+              <li
+                className="cursor-pointer text-gray-400 hover:text-amber-400 transition-colors"
+                onClick={() => Navigate("/Fictional")}
+              >
+                Fictional
+              </li>
+            </ul>
+            {/* <ul className="space-y-3">
               {["Action", "Comedy", "Drama", "Horror", "Sci-Fi"].map((item) => (
                 <li key={item}>
                   <a
@@ -76,7 +110,7 @@ function Footer() {
                   </a>
                 </li>
               ))}
-            </ul>
+            </ul> */}
           </div>
 
           <div>
