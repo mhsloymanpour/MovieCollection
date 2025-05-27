@@ -1,4 +1,5 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import {
   FaFilm,
   FaBell,
@@ -6,10 +7,21 @@ import {
   FaChevronDown,
   FaQuestionCircle,
 } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 function Header() {
   const Navigate = useNavigate();
+  const location = useLocation();
+  const [genre, setGenre] = useState();
+
+  useEffect(() => {
+    axios
+      .get("http://moviesapi.ir/api/v1/genres")
+      .then((res) => setGenre(res.data));
+  }, []);
+
+  console.log(genre);
+
   return (
     <header className="sticky top-0 z-50 bg-gray-900 border-b border-gray-800 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
@@ -25,7 +37,9 @@ function Header() {
         <div className="hidden md:flex items-center gap-1">
           <button
             onClick={() => Navigate("/")}
-            className="px-4 py-2 text-gray-300 hover:text-white text-sm font-medium rounded-md hover:bg-gray-800 transition-colors"
+            className={` ${
+              location.pathname == "/" && "bg-amber-600"
+            }  px-4 py-2 text-gray-300 hover:text-white  text-sm font-medium rounded-md hover:bg-gray-800 transition-colors`}
           >
             Home
           </button>
@@ -37,54 +51,36 @@ function Header() {
               <FaChevronDown className="text-xs mt-0.5 opacity-70 group-hover:opacity-100 transition-opacity" />
             </button>
             <div className="absolute left-0 mt-1 w-48 bg-gray-800 rounded-md shadow-lg py-1 hidden group-hover:block z-50">
-              <a
-                onClick={() => Navigate("/Action")}
-                className="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white cursor-pointer"
-              >
-                Action
-              </a>
-              <a
-                onClick={() => Navigate("/Comedy")}
-                className="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white cursor-pointer"
-              >
-                Comedy
-              </a>
-              <a
-                onClick={() => Navigate("/Drama")}
-                className="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white cursor-pointer"
-              >
-                Drama
-              </a>
-              <a
-                onClick={() => Navigate("/Fictional")}
-                className="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white cursor-pointer"
-              >
-                Fictional
-              </a>
-              <a
-                onClick={() => Navigate("/Scary")}
-                className="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white cursor-pointer"
-              >
-                Scary
-              </a>
+              {genre &&
+                genre.map((item) => (
+                  <a
+                    onClick={() => Navigate(`/${item.name}/${item.id}`)}
+                    className="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white cursor-pointer"
+                  >
+                    {item.name}
+                  </a>
+                ))}
             </div>
           </div>
 
           {/* About Button */}
           <button
             onClick={() => Navigate("/About")}
-            className="px-4 py-2 text-gray-300 hover:text-white text-sm font-medium rounded-md hover:bg-gray-800 transition-colors"
+            className={`${
+              location.pathname == "/About" && "bg-amber-600"
+            } px-4 py-2 text-gray-300 hover:text-white text-sm font-medium rounded-md hover:bg-gray-800 transition-colors`}
           >
             About
           </button>
 
           {/* Help Button */}
           <button
-            onClick={() => Navigate("/Help")}
-            className="px-4 py-2 text-gray-300 hover:text-white text-sm font-medium rounded-md hover:bg-gray-800 transition-colors flex items-center gap-1"
+            onClick={() => Navigate("/Contact")}
+            className={`${
+              location.pathname == "/Contact" && "bg-amber-600"
+            } px-4 py-2 text-gray-300 hover:text-white text-sm font-medium rounded-md hover:bg-gray-800 transition-colors flex items-center gap-1`}
           >
-            <FaQuestionCircle className="text-sm" />
-            <span>Help</span>
+            <span>Contact Us</span>
           </button>
         </div>
 
